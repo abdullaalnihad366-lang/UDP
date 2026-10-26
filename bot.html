@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project – KILLU X HOST</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050812;--panel:#0b1223;--panel2:#101a31;--line:#1b2947;--line2:#27396383;--text:#eaf0ff;--muted:#8d9cc0;--blue:#2f7bff;--cyan:#4fd6ff;--ok:#3ddc97;--bad:#ff5d73;--warn:#ffc65c;
+--display:'Unbounded','Segoe UI',sans-serif;--body:'Manrope','Segoe UI',system-ui,sans-serif;--mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font:400 15px/1.55 var(--body);min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(800px 420px at 90% -5%,rgba(47,123,255,.18),transparent 70%),linear-gradient(rgba(120,150,220,.04) 1px,transparent 1px) 0 0/52px 52px,linear-gradient(90deg,rgba(120,150,220,.04) 1px,transparent 1px) 0 0/52px 52px;-webkit-mask-image:linear-gradient(#000 40%,transparent);mask-image:linear-gradient(#000 40%,transparent)}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:8px}
+::selection{background:rgba(47,123,255,.4)}
+::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#1f2f52;border-radius:9px}
+h1,h2,h3{font-family:var(--display);line-height:1.2;letter-spacing:-.02em}
+[hidden]{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 70px}
+.bar{position:sticky;top:0;z-index:20;background:rgba(5,8,18,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px}
+.back,.ib{width:40px;height:40px;display:grid;place-items:center;flex:none;border-radius:11px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:16px;transition:border-color .15s,color .15s}
+.back:hover,.ib:hover{border-color:var(--blue);color:var(--text)}
+.ttl{flex:1;min-width:0}.ttl h1{font-size:19px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dot{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:800;color:var(--muted);letter-spacing:.02em}.dot::before{content:"";width:8px;height:8px;border-radius:50%;background:#4a5a7e}
+.dot.on{color:var(--ok)}.dot.on::before{background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.chip{padding:3px 11px;border-radius:99px;background:rgba(47,123,255,.15);color:var(--cyan);font-size:12px;font-weight:700}.chip.js{background:rgba(255,198,92,.14);color:var(--warn)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;min-height:42px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);font-weight:700;font-size:14px;transition:transform .15s,border-color .15s;position:relative;overflow:hidden}
+.btn:hover{border-color:var(--blue);transform:translateY(-1px)}.btn.p{background:linear-gradient(135deg,#3b86ff,#1a4fd0);border-color:rgba(120,170,255,.35);box-shadow:0 8px 26px rgba(47,123,255,.35)}
+.btn.d:hover{border-color:var(--bad);color:var(--bad)}.btn.p.d{background:linear-gradient(135deg,#ff6a7d,#d02a44);border-color:transparent;box-shadow:0 8px 26px rgba(255,93,115,.3)}.btn.p.d:hover{color:#fff}
+.btn.s{padding:7px 13px;min-height:34px;font-size:13px}.btn.w{width:100%}
+.tabs{display:flex;gap:8px;margin:18px 0;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tabs button{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);color:var(--muted);font-weight:700;padding:11px 18px;border-radius:12px;white-space:nowrap;transition:color .15s,border-color .15s}
+.tabs button[aria-selected=true]{color:var(--text);background:var(--panel2);border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:16px}
+.ch{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.ch h2{font-size:15px}.ch .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pad{padding:18px}
+.ctl{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.ctl .btn{width:100%}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat{position:relative;overflow:hidden;padding:16px 18px;margin:0}.stat span{color:var(--muted);font-size:13px}
+.stat strong{display:block;font-family:var(--display);font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums}
+.stat svg{position:absolute;right:0;bottom:0;width:50%;height:36px}
+pre{font:13px/1.8 var(--mono);padding:14px 18px;overflow:auto;white-space:pre-wrap;word-break:break-word;color:#b9c7e6}
+#log{height:52vh;background:rgba(0,0,0,.35)}#term{height:50vh;background:rgba(0,0,0,.35)}
+.t{color:#5d6d92}.r{color:var(--bad)}.c{color:var(--cyan)}
+.fi2{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;width:150px}.fi2:focus{border-color:var(--blue);outline:0}
+.cmd{display:flex;align-items:center;gap:10px;padding:12px 18px;border-top:1px solid var(--line);background:rgba(5,8,18,.55);font:14px var(--mono)}
+.cmd input{flex:1;background:none;border:0;outline:0;font:14px var(--mono);min-width:0}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 18px;border-top:1px solid var(--line);scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:6px 14px;font:12.5px var(--mono);color:var(--muted)}.chips button:hover{color:var(--cyan);border-color:var(--blue)}
+.files{display:grid;grid-template-columns:380px minmax(0,1fr);gap:16px;align-items:start}.files .card{margin:0}
+.crumb{font:13px var(--mono);color:var(--muted);padding:11px 18px;border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}.crumb a{cursor:pointer;color:var(--cyan)}
+.fl{max-height:64vh;overflow:auto;padding:10px;display:grid;gap:8px;align-content:start}
+.fi{display:flex;align-items:center;gap:12px;padding:6px 6px 6px 14px;min-height:54px;cursor:pointer;background:rgba(0,0,0,.32);border:1px solid transparent;border-radius:12px}
+.fi:hover{border-color:var(--line)}.fi.sel{border-color:var(--blue);background:rgba(47,123,255,.12)}
+.fi .n{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;font-weight:600}.fi small{color:var(--muted);font-size:12.5px;white-space:nowrap}
+.fi .ib{width:38px;height:38px;border:0;background:none}
+.empty{color:var(--muted);text-align:center;padding:26px 10px}
+.edw{display:grid;grid-template-columns:auto minmax(0,1fr);background:rgba(0,0,0,.35)}
+#gut{font:13.5px/1.7 var(--mono);padding:14px 10px 24px 14px;text-align:right;color:#4a5a7e;overflow:hidden;height:58vh;white-space:pre;border-right:1px solid var(--line);user-select:none}
+#ed{width:100%;height:58vh;background:none;border:0;outline:0;resize:none;font:13.5px/1.7 var(--mono);padding:14px 16px;tab-size:4;white-space:pre;overflow:auto;color:#d6e0f7}
+.st{display:flex;justify-content:space-between;gap:12px;padding:8px 16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+.mb{display:none}
+.pk{display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:10px;background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:99px;padding:8px 8px 8px 16px;font-size:14px;max-width:100%}
+.pill span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pill button{background:none;border:0;color:var(--muted);width:26px;height:26px;border-radius:50%}.pill button:hover{background:var(--panel2);color:var(--bad)}
+.chart{width:100%;height:200px;display:block}.chart .gl{stroke:#1b2947;stroke-width:1;vector-effect:non-scaling-stroke}
+.lg{display:flex;gap:16px;font-size:13px;color:var(--muted)}.lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px}
+.form{display:grid;gap:20px;padding:20px}
+.form label{display:block;font-weight:700;margin-bottom:6px;font-size:14px}.form small{display:block;color:var(--muted);font-weight:400;margin-top:5px}
+.form input[type=text],.er input{width:100%;background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:11px;padding:12px 14px;min-height:44px}
+.form input:focus,.er input:focus{border-color:var(--blue);outline:0}
+.idr{display:flex;gap:8px}.idr input{flex:1;color:var(--muted)}
+.er{display:grid;grid-template-columns:1fr 1fr 40px;gap:8px;margin-bottom:8px}.er .ib{width:40px;height:44px}
+.chk{display:flex;gap:12px;align-items:flex-start}.chk input{margin-top:4px;width:20px;height:20px;accent-color:var(--blue)}
+.danger{border:1px solid rgba(255,93,115,.3);border-radius:16px;padding:18px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.danger h3{font-size:14px;color:var(--bad);margin-bottom:2px}.danger small{color:var(--muted)}
+#pop{position:fixed;z-index:80;min-width:170px;background:var(--panel2);border:1px solid var(--line2);border-radius:14px;padding:6px;box-shadow:0 24px 70px rgba(0,0,0,.7)}
+#pop button{display:block;width:100%;text-align:left;background:none;border:0;padding:11px 14px;border-radius:9px;font-weight:600}#pop button:hover{background:rgba(47,123,255,.15)}#pop .bad{color:var(--bad)}
+dialog{margin:auto;background:var(--panel);color:var(--text);border:1px solid var(--line2);border-radius:20px;padding:26px;width:min(440px,92vw);box-shadow:0 40px 100px rgba(0,0,0,.7)}
+dialog::backdrop{background:rgba(3,5,12,.72);backdrop-filter:blur(4px)}
+dialog h3{font-size:17px;margin-bottom:10px}dialog p{color:var(--muted);margin-bottom:14px}
+dialog input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:6px}dialog input:focus{border-color:var(--blue);outline:0}
+.dr{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+#drop{position:fixed;inset:14px;z-index:90;display:grid;place-items:center;border:2px dashed var(--cyan);border-radius:24px;background:rgba(5,8,18,.9);backdrop-filter:blur(6px);font:700 20px var(--display);text-align:center;padding:24px;pointer-events:none}
+#drop small{display:block;font:400 15px var(--body);color:var(--muted);margin-top:10px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;z-index:100;display:grid;gap:10px;width:min(380px,92vw)}
+#toast div{background:var(--panel2);border:1px solid var(--line2);border-left:3px solid var(--blue);padding:12px 18px;border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.6);font-size:14px;font-weight:600}#toast div.e{border-left-color:var(--bad)}
+@media(max-width:1000px){
+  .files{grid-template-columns:1fr}
+  #edCard{position:fixed;inset:0;z-index:60;display:none;flex-direction:column;border-radius:0;margin:0;background:var(--bg)}
+  #edCard.open{display:flex}#edCard .edw{flex:1;min-height:0}#gut,#ed{height:100%}.mb{display:grid}
+}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}.wrap{padding:0 14px 70px}.er{grid-template-columns:1fr 1fr 40px}.fi2{width:120px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+  <a class="back" href="panel.html" aria-label="Back to all bots">←</a>
+  <div class="ttl"><h1 id="bName">Loading…</h1><span class="dot" id="bState">…</span></div>
+  <span class="chip" id="bLang"></span>
+  <button class="ib" id="menuBtn" data-menu aria-label="Project menu">⋮</button>
+</div></header>
+
+<div class="wrap">
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-p="overview">▦ Overview</button>
+    <button role="tab" aria-selected="false" data-p="terminal">⌨ Terminal</button>
+    <button role="tab" aria-selected="false" data-p="files">🗂 Files</button>
+    <button role="tab" aria-selected="false" data-p="manage">⚙ Manage</button>
+    <button role="tab" aria-selected="false" data-p="backups">⛁ Backups</button>
+    <button role="tab" aria-selected="false" data-p="settings">☰ Settings</button>
+  </nav>
+
+  <section class="pane" id="p-overview">
+    <div class="ctl">
+      <button class="btn p" data-a="start">▶ Start</button>
+      <button class="btn" data-a="restart">↻ Restart</button>
+      <button class="btn d" data-a="stop">■ Stop</button>
+    </div>
+    <div class="stats">
+      <div class="card stat"><span>Status</span><strong id="sSt">–</strong></div>
+      <div class="card stat"><span>CPU</span><strong id="sCpu">0%</strong><svg id="spC" viewBox="0 0 120 36" preserveAspectRatio="none"></svg></div>
+      <div class="card stat"><span>Memory</span><strong id="sRam">0 MB</strong><svg id="spR" viewBox="0 0 120 36" preserveAspectRatio="none"></svg></div>
+      <div class="card stat"><span>Uptime</span><strong id="sUp">–</strong></div>
+    </div>
+    <div class="card">
+      <div class="ch"><h2>Console</h2><div class="row"><input class="fi2" id="lf" placeholder="Filter…" aria-label="Filter log lines"><button class="btn s" id="cp">Copy</button><button class="btn s" id="clr">Clear</button></div></div>
+      <pre id="log" aria-live="polite"></pre>
+    </div>
+    <div class="card">
+      <div class="ch"><h2>Recent activity</h2></div>
+      <div class="fl" id="ev" style="max-height:34vh"></div>
+    </div>
+  </section>
+
+  <section class="pane card" id="p-terminal" hidden>
+    <div class="ch"><h2>Project terminal</h2><div class="row"><button class="btn s d" id="tStop" hidden>Stop (Ctrl+C)</button><button class="btn s" id="tClr">Clear</button></div></div>
+    <pre id="term"><span class="t">Commands run inside this project’s folder. Try: ls -la</span></pre>
+    <div class="chips" id="chips"></div>
+    <div class="cmd"><span class="c" id="tPrompt">~ $</span><input id="tIn" placeholder="pip install requests" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command"></div>
+  </section>
+
+  <section class="pane files" id="p-files" hidden>
+    <div class="card">
+      <div class="ch"><h2>File manager</h2><div class="row">
+        <button class="ib" id="nd" aria-label="New folder" title="New folder">🗀</button>
+        <button class="ib" id="nf" aria-label="New file" title="New file">＋</button>
+        <button class="ib" id="up" aria-label="Upload files or zip" title="Upload">⇧</button><input type="file" id="upIn" multiple hidden></div></div>
+      <div class="crumb" id="crumb"></div><div class="fl" id="fl"></div>
+      <div class="st"><span>Drag files or a .zip anywhere to upload</span></div>
+    </div>
+    <div class="card" id="edCard">
+      <div class="ch"><div class="row" style="min-width:0"><button class="ib mb" id="edBack" aria-label="Back to files">←</button><h2 id="fName" class="t" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Select a file to edit</h2></div>
+        <div class="row"><button class="btn s" id="fSave" hidden>Save</button><button class="btn p s" id="fSaveR" hidden>Save &amp; restart</button></div></div>
+      <div class="edw"><pre id="gut" aria-hidden="true">1</pre><textarea id="ed" spellcheck="false" wrap="off" placeholder="Pick a file on the left, or create a new one." disabled></textarea></div>
+      <div class="st"><span id="stPos">Ln 1, Col 1</span><span id="stInfo">Ctrl+S to save</span></div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-manage" hidden>
+    <div class="card">
+      <div class="ch"><h2>Packages</h2><div class="row"><button class="btn s" id="pkAll">Install all</button><button class="ib" id="pkAdd" aria-label="Add package">＋</button></div></div>
+      <div class="pad"><div class="pk" id="pk"></div></div>
+    </div>
+    <div class="card">
+      <div class="ch"><h2>Usage</h2><div class="lg"><span><i style="background:var(--cyan)"></i>CPU</span><span><i style="background:var(--blue)"></i>RAM</span></div></div>
+      <div class="pad"><svg class="chart" id="chart" viewBox="0 0 600 200" preserveAspectRatio="none" role="img" aria-label="Live CPU and memory chart">
+        <defs><linearGradient id="fc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4fd6ff" stop-opacity=".35"/><stop offset="1" stop-color="#4fd6ff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="fr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f7bff" stop-opacity=".3"/><stop offset="1" stop-color="#2f7bff" stop-opacity="0"/></linearGradient></defs>
+        <line class="gl" x1="0" x2="600" y1="50" y2="50"/><line class="gl" x1="0" x2="600" y1="100" y2="100"/><line class="gl" x1="0" x2="600" y1="150" y2="150"/>
+        <path id="aR" fill="url(#fr)"/><path id="lR" fill="none" stroke="#2f7bff" stroke-width="2.5" vector-effect="non-scaling-stroke"/>
+        <path id="aC" fill="url(#fc)"/><path id="lC" fill="none" stroke="#4fd6ff" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg></div>
+    </div>
+  </section>
+
+  <section class="pane card" id="p-backups" hidden>
+    <div class="ch"><h2>Backups</h2><div class="row"><button class="btn p s" id="bkNew">+ Create backup</button></div></div>
+    <div class="fl" id="bkList"></div>
+    <div class="st"><span>Keeps your latest 20 backups · logs and node_modules are skipped</span></div>
+  </section>
+
+  <section class="pane" id="p-settings" hidden>
+    <div class="card"><div class="ch"><h2>Settings</h2></div><div class="form">
+      <div><label for="sId">Server ID</label><div class="idr"><input type="text" id="sId" readonly><button class="ib" id="idCp" aria-label="Copy ID">⧉</button></div></div>
+      <div><label for="sName">Name</label><input type="text" id="sName" maxlength="40"></div>
+      <div><label for="sDesc">Description</label><input type="text" id="sDesc" maxlength="200" placeholder="What does this project do?"></div>
+      <div><label for="sCmd">Main file</label><input type="text" id="sCmd" placeholder="e.g. loke.py"><small>A file name like <b>loke.py</b>, or a full command like <b>python -u main.py</b>. Leave empty to auto-detect.</small></div>
+      <div><label for="sHrs">Scheduled restart (hours)</label><input type="text" id="sHrs" inputmode="decimal" placeholder="0 = off"><small>Restart the project every N hours. Handy for bots that slowly use more memory.</small></div>
+      <div class="chk"><input type="checkbox" id="sAuto"><div><label for="sAuto" style="margin:0">Restart automatically if it crashes</label><small>Gives up after 5 crashes in 2 minutes.</small></div></div>
+      <div class="row" style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn p" id="save">Save</button><button class="btn" id="saveR">Save &amp; restart</button></div>
+    </div></div>
+    <div class="card"><div class="ch"><h2>Environment variables</h2><div class="row"><button class="btn s" id="rev">Show values</button><button class="ib" id="envAdd" aria-label="Add variable">＋</button></div></div>
+      <div class="form"><div id="envs"></div><small style="margin-top:-8px">Tokens and secrets go here, not in your code. Remember to press Save.</small></div></div>
+    <div class="danger"><div><h3>Danger zone</h3><small>Deletes the project, its files and its backups.</small></div><button class="btn p d" id="del">Delete project</button></div>
+  </section>
+</div>
+
+<div id="pop" hidden></div>
+<dialog id="md"><h3 id="mT"></h3><p id="mM"></p><input id="mI" hidden autocomplete="off" spellcheck="false">
+  <div class="dr"><button class="btn" id="mNo">Cancel</button><button class="btn" id="mAlt" hidden></button><button class="btn p" id="mOk">OK</button></div></dialog>
+<div id="drop" hidden>Drop to upload<small>.zip files can be extracted for you</small></div>
+<div id="toast" aria-live="polite"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ID=+new URLSearchParams(location.search).get('id');
+if(!ID)location.href='panel.html';
+const J=(m,b)=>({method:m,headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});
+async function api(p,o){
+  const r=await fetch('/api/bots/'+ID+p,o);
+  if(!r.ok){let m='Request failed ('+r.status+')';try{m=(await r.json()).error||m}catch(_){}throw new Error(m)}
+  return r.json();
+}
+function toast(t,bad){const d=document.createElement('div');d.textContent=t;if(bad)d.className='e';$('toast').appendChild(d);setTimeout(()=>d.remove(),bad?4500:2600)}
+const fail=e=>toast(e.message,1);
+const fmt=s=>{const d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);return d?d+'d '+h+'h':h?h+'h '+m+'m':m+'m '+(s%60)+'s'};
+const size=b=>b>1048576?(b/1048576).toFixed(1)+' MB':b>1024?(b/1024).toFixed(1)+' KB':b+' B';
+const col=l=>{const s=esc(l);return /error|traceback|exception/i.test(l)?'<span class="r">'+s+'</span>':l.startsWith('[killu]')?'<span class="c">'+s+'</span>':s};
+const join=(a,b)=>a?a+'/'+b:b;
+const copy=async(t,m)=>{try{await navigator.clipboard.writeText(t);toast(m||'Copied')}catch(_){toast('Copy is blocked by the browser',1)}};
+
+// dialogs + menus
+function ask(title,o={}){
+  return new Promise(res=>{
+    const d=$('md'),i=$('mI'),hasIn='input' in o;let val=null;
+    $('mT').textContent=title;$('mM').textContent=o.msg||'';$('mM').hidden=!o.msg;
+    i.hidden=!hasIn;i.value=o.input||'';
+    $('mOk').textContent=o.ok||'OK';$('mOk').className='btn p'+(o.danger?' d':'');
+    $('mAlt').hidden=!o.alt;$('mAlt').textContent=o.alt||'';
+    $('mOk').onclick=()=>{val=hasIn?(i.value.trim()||null):true;d.close()};
+    $('mAlt').onclick=()=>{val='alt';d.close()};$('mNo').onclick=()=>d.close();
+    i.onkeydown=e=>{if(e.key=='Enter'){e.preventDefault();$('mOk').click()}};
+    d.onclose=()=>res(val);d.showModal();if(hasIn){i.focus();i.select()}
+  });
+}
+function pop(anchor,items){
+  const m=$('pop');m.innerHTML='';
+  items.forEach(([t,fn,bad])=>{const b=document.createElement('button');b.textContent=t;if(bad)b.className='bad';b.onclick=()=>{m.hidden=true;fn()};m.appendChild(b)});
+  m.hidden=false;const r=anchor.getBoundingClientRect(),w=m.offsetWidth,h=m.offsetHeight;
+  m.style.top=Math.max(8,Math.min(r.bottom+6,innerHeight-h-10))+'px';m.style.left=Math.max(10,Math.min(r.right-w,innerWidth-w-10))+'px';
+}
+addEventListener('click',e=>{if(!e.target.closest('#pop')&&!e.target.closest('[data-menu]'))$('pop').hidden=true},true);
+
+// ---------- status ----------
+const N=60,H={c:Array(N).fill(0),r:Array(N).fill(0)};
+let loaded=false,on=false,lang='py',rawLogs=[],lastHtml='';
+const sp=(a,mx,w,h)=>'M'+a.map((v,i)=>(i*w/(a.length-1)).toFixed(1)+','+(h-2-(v/mx)*(h-8)).toFixed(1)).join('L');
+function spark(id,a,c){const mx=Math.max(...a,1)*1.2,d=sp(a,mx,120,36);$(id).innerHTML=`<path d="${d}L120,36L0,36Z" fill="${c}" opacity=".14"/><path d="${d}" fill="none" stroke="${c}" stroke-width="2" vector-effect="non-scaling-stroke"/>`}
+function drawChart(){
+  const mc=Math.max(...H.c,10)*1.25,mr=Math.max(...H.r,100)*1.25;
+  for(const [k,a,m] of [['C',H.c,mc],['R',H.r,mr]]){const d=sp(a,m,600,200);$('l'+k).setAttribute('d',d);$('a'+k).setAttribute('d',d+'L600,200L0,200Z')}
+}
+function drawLogs(){
+  const f=$('lf').value.toLowerCase(),L=f?rawLogs.filter(l=>l.toLowerCase().includes(f)):rawLogs;
+  const html=L.map(col).join('\n')||'<span class="t">'+(f?'No lines match.':'No output yet. Press Start to run the project.')+'</span>';
+  if(html===lastHtml)return;lastHtml=html;const p=$('log'),stick=p.scrollTop+p.clientHeight>=p.scrollHeight-60;p.innerHTML=html;if(stick||!p.scrollTop)p.scrollTop=p.scrollHeight;
+}
+async function poll(){
+  try{
+    const d=await api('');on=d.on;lang=d.lang;
+    $('bName').textContent=d.name;document.title=d.name+' – KILLU X HOST';
+    $('bLang').textContent=d.lang=='py'?'Python':'Node.js';$('bLang').className='chip '+d.lang;
+    const s=$('bState');s.className='dot'+(d.on?' on':'');s.textContent=d.on?(d.status=='running'?'RUNNING':'STARTING'):'STOPPED';
+    document.querySelector('[data-a=start]').disabled=d.on;
+    document.querySelector('[data-a=restart]').disabled=!d.on;document.querySelector('[data-a=stop]').disabled=!d.on;
+    $('fSaveR').hidden=!(cur&&d.on);
+    $('sSt').textContent=d.on?(d.status=='running'?'Running':'Starting'):'Stopped';$('sSt').style.color=d.on?'var(--ok)':'var(--muted)';
+    $('sCpu').textContent=d.cpu+'%';$('sRam').textContent=d.ram+' MB';$('sUp').textContent=d.on&&d.up?fmt(d.up):'–';
+    H.c.push(d.cpu);H.c.shift();H.r.push(d.ram);H.r.shift();spark('spC',H.c,'#4fd6ff');spark('spR',H.r,'#2f7bff');drawChart();
+    rawLogs=d.logs;drawLogs();
+    $('ev').innerHTML=(d.events||[]).map(x=>`<div class="fi" style="cursor:default"><span class="n">${esc(x.m)}</span><small>${new Date(x.t*1000).toLocaleString([],{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})}</small></div>`).join('')||'<div class="empty">Nothing yet. Starts, stops and crashes show up here.</div>';
+    if(!loaded){loaded=true;$('sId').value=ID;$('sHrs').value=d.restart_hours||'';$('sName').value=d.name;$('sDesc').value=d.description||'';$('sCmd').value=d.cmd;
+      $('sCmd').placeholder='Auto: '+(d.detected||'no start file found yet');$('sAuto').checked=d.auto;
+      Object.entries(d.env).forEach(([k,v])=>envRow(k,v));if(!Object.keys(d.env).length)envRow();loadPkgs()}
+  }catch(e){$('bState').textContent='SERVER OFFLINE';$('bState').className='dot'}
+}
+document.querySelectorAll('[data-a]').forEach(b=>b.onclick=async()=>{
+  try{await api('/'+b.dataset.a,{method:'POST'});toast('Done: '+b.dataset.a);poll()}catch(e){fail(e)}
+});
+$('lf').oninput=drawLogs;
+$('cp').onclick=()=>copy(rawLogs.join('\n'),'Console copied');
+$('clr').onclick=async()=>{try{await api('/clear',{method:'POST'});rawLogs=[];lastHtml='';poll()}catch(e){fail(e)}};
+$('menuBtn').onclick=e=>pop(e.currentTarget,[
+  ['▶ Start',()=>document.querySelector('[data-a=start]').click()],['↻ Restart',()=>document.querySelector('[data-a=restart]').click()],['■ Stop',()=>document.querySelector('[data-a=stop]').click()],
+  ['Download logs',()=>location.href='/api/bots/'+ID+'/download?path=bot.log'],['Delete project',()=>$('del').click(),1]]);
+
+// ---------- tabs ----------
+function switchTab(name){
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x.dataset.p===name));
+  document.querySelectorAll('.pane').forEach(p=>p.hidden=p.id!=='p-'+name);
+  if(name=='files')ls(dir);if(name=='terminal')$('tIn').focus();if(name=='backups')loadBk();if(name=='manage')loadPkgs();
+  history.replaceState(null,'','#'+name);
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>switchTab(b.dataset.p));
+
+// ---------- terminal ----------
+const hist=[];let hi=0,cwd='',ctl=null;
+['ls -la','pip install -r requirements.txt','npm install','python --version','node -v','git pull'].forEach(c=>{
+  const b=document.createElement('button');b.textContent=c;b.onclick=()=>{$('tIn').value=c;$('tIn').focus()};$('chips').appendChild(b)});
+const tOut=h=>{const t=$('term');t.insertAdjacentHTML('beforeend','\n'+h);t.scrollTop=t.scrollHeight};
+const prompt_=()=>(cwd?'~/'+cwd:'~')+' $';
+async function runCmd(c){
+  hist.push(c);hi=hist.length;tOut('<span class="c">'+esc(prompt_()+' '+c)+'</span>');
+  $('tIn').disabled=true;$('tStop').hidden=false;ctl=new AbortController();
+  const holder=document.createElement('span');$('term').append('\n',holder);let acc='',shown=0;
+  try{
+    const r=await fetch('/api/bots/'+ID+'/exec',{...J('POST',{cmd:c,cwd}),signal:ctl.signal});
+    if(!r.ok)throw new Error((await r.json()).error||'Command failed');
+    const rd=r.body.getReader(),dec=new TextDecoder();
+    for(;;){
+      const {done,value}=await rd.read();if(done)break;acc+=dec.decode(value,{stream:true});
+      const k=acc.indexOf('\0'),vis=k<0?acc:acc.slice(0,k);
+      if(vis.length>shown){holder.textContent+=vis.slice(shown);shown=vis.length;$('term').scrollTop=$('term').scrollHeight}
+    }
+    const k=acc.indexOf('\0');
+    if(k>=0){const m=acc.slice(k),w=m.match(/\0CWD:(.*)/),e=m.match(/\0EXIT:(-?\d+)/);if(w)cwd=w[1].trim();if(e&&e[1]!=='0')tOut('<span class="r">exit code '+e[1]+'</span>')}
+    holder.textContent=holder.textContent.replace(/\n+$/,'')||'(no output)';
+  }catch(err){tOut('<span class="r">'+(err.name=='AbortError'?'^C stopped':esc(err.message))+'</span>')}
+  $('tIn').disabled=false;$('tStop').hidden=true;$('tPrompt').textContent=prompt_();$('tIn').focus();
+}
+$('tIn').addEventListener('keydown',e=>{
+  const i=e.target;
+  if(e.key=='ArrowUp'&&hi>0){i.value=hist[--hi];e.preventDefault()}
+  else if(e.key=='ArrowDown'){hi=Math.min(hi+1,hist.length);i.value=hist[hi]||'';e.preventDefault()}
+  else if(e.key=='Enter'&&i.value.trim()){const c=i.value.trim();i.value='';runCmd(c)}
+});
+$('tStop').onclick=()=>ctl&&ctl.abort();$('tClr').onclick=()=>{$('term').innerHTML=''};
+
+// ---------- files ----------
+let dir='',cur=null,dirty=false;
+const icon=(n,d)=>d?'📁':({py:'🐍',js:'📜',ts:'📜',json:'🧾',yml:'🧾',yaml:'🧾',toml:'🧾',env:'🔑',md:'📝',txt:'📝',zip:'📦',log:'📋'}[n.split('.').pop().toLowerCase()]||'📄');
+async function ls(p){
+  try{
+    const d=await api('/files?path='+encodeURIComponent(p||''));dir=d.path;
+    const parts=dir?dir.split('/'):[];let acc='';
+    $('crumb').innerHTML='<a data-p="">~</a>'+parts.map(x=>{acc=join(acc,x);return' / <a data-p="'+esc(acc)+'">'+esc(x)+'</a>'}).join('');
+    $('fl').innerHTML=(dir?'<div class="fi" data-up="1"><b>📁</b><span class="n">..</span></div>':'')+d.items.map(f=>`<div class="fi${join(dir,f.name)===cur?' sel':''}" data-n="${esc(f.name)}" data-d="${f.dir?1:0}">
+      <b>${icon(f.name,f.dir)}</b><span class="n">${esc(f.name)}</span><small>${f.dir?'':size(f.size)}</small><button class="ib" data-menu aria-label="Options for ${esc(f.name)}">⋮</button></div>`).join('')||'<div class="empty">This folder is empty</div>';
+  }catch(e){fail(e)}
+}
+$('crumb').onclick=e=>{const a=e.target.closest('a');if(a)ls(a.dataset.p)};
+async function fileMenu(btn,r){
+  const n=r.dataset.n,p=join(dir,n),isDir=r.dataset.d==='1',items=[];
+  if(!isDir&&/\.zip$/i.test(n))items.push(['Extract here',async()=>{try{const d=await api('/unzip',J('POST',{path:p}));toast('Extracted '+d.count+' file'+(d.count==1?'':'s'));ls(dir)}catch(e){fail(e)}}]);
+  if(!isDir)items.push(['Download',()=>location.href='/api/bots/'+ID+'/download?path='+encodeURIComponent(p)]);
+  if(!(dir===''&&n==='bot.log')){
+    items.push(['Rename',async()=>{const to=await ask('Rename',{input:n,ok:'Rename'});if(!to||to===n)return;
+      try{await api('/rename',J('POST',{from:p,to:join(dir,to)}));if(cur===p){cur=join(dir,to);$('fName').textContent=cur}ls(dir)}catch(e){fail(e)}}]);
+    items.push(['Delete',async()=>{if(!await ask('Delete “'+n+'”?',{msg:isDir?'The folder and everything inside it will be removed.':'This can’t be undone.',ok:'Delete',danger:1}))return;
+      try{await api('/file?path='+encodeURIComponent(p),{method:'DELETE'});if(cur&&(cur===p||cur.startsWith(p+'/')))closeFile();toast('Deleted '+n);ls(dir)}catch(e){fail(e)}},1]);
+  }
+  pop(btn,items);
+}
+$('fl').onclick=e=>{
+  const r=e.target.closest('.fi');if(!r)return;
+  if(r.dataset.up)return ls(dir.split('/').slice(0,-1).join('/'));
+  const m=e.target.closest('[data-menu]');if(m)return fileMenu(m,r);
+  const p=join(dir,r.dataset.n);if(r.dataset.d==='1')ls(p);else openFile(p);
+};
+function closeFile(){cur=null;dirty=false;$('ed').value='';$('ed').disabled=true;$('fName').textContent='Select a file to edit';$('fName').className='t';$('fSave').hidden=$('fSaveR').hidden=true;$('edCard').classList.remove('open');gutter();$('stInfo').textContent='Ctrl+S to save'}
+const LANG={py:'Python',js:'JavaScript',ts:'TypeScript',json:'JSON',md:'Markdown',txt:'Text',yml:'YAML',yaml:'YAML',env:'Env',html:'HTML',css:'CSS',sh:'Shell'};
+async function openFile(p){
+  if(dirty&&!await ask('Discard unsaved changes?',{msg:'You have unsaved edits in '+cur+'.',ok:'Discard',danger:1}))return;
+  try{const d=await api('/file?path='+encodeURIComponent(p));
+    cur=p;dirty=false;$('ed').disabled=false;$('ed').value=d.content;$('ed').scrollTop=0;$('fName').textContent=p.split('/').pop();$('fName').className='';
+    $('fSave').hidden=false;$('fSaveR').hidden=!on;$('edCard').classList.add('open');gutter();pos();
+    $('stInfo').textContent=(LANG[p.split('.').pop().toLowerCase()]||'Plain text')+' · Ctrl+S to save';ls(dir)}
+  catch(e){fail(e)}
+}
+$('edBack').onclick=async()=>{if(dirty&&!await ask('Discard unsaved changes?',{ok:'Discard',danger:1}))return;closeFile();ls(dir)};
+async function saveFile(restart){
+  if(!cur)return;
+  try{await api('/file',J('PUT',{path:cur,content:$('ed').value}));dirty=false;$('fName').textContent=cur.split('/').pop();
+    if(restart){await api('/restart',{method:'POST'});toast('Saved and restarted')}else toast('Saved'+(on?' · restart to apply':''));poll()}
+  catch(e){fail(e)}
+}
+function gutter(){const n=$('ed').value.split('\n').length;$('gut').textContent=Array.from({length:n},(_,i)=>i+1).join('\n')}
+function pos(){const e=$('ed'),v=e.value.slice(0,e.selectionStart).split('\n');$('stPos').textContent='Ln '+v.length+', Col '+(v[v.length-1].length+1)+' · '+e.value.split('\n').length+' lines'}
+$('ed').addEventListener('input',()=>{dirty=true;$('fName').textContent=cur.split('/').pop()+' ●';gutter();pos()});
+$('ed').addEventListener('scroll',()=>{$('gut').scrollTop=$('ed').scrollTop});
+['keyup','click'].forEach(ev=>$('ed').addEventListener(ev,pos));
+$('ed').addEventListener('keydown',e=>{
+  const t=e.target;
+  if(e.key=='Tab'){e.preventDefault();t.setRangeText('    ',t.selectionStart,t.selectionEnd,'end');t.dispatchEvent(new Event('input'))}
+  else if(e.key=='Enter'&&!e.ctrlKey&&!e.shiftKey){
+    e.preventDefault();const s=t.selectionStart,b=t.value.slice(0,s),ln=b.slice(b.lastIndexOf('\n')+1);
+    let ind=ln.match(/^\s*/)[0];if(/[:{(\[]\s*$/.test(ln))ind+='    ';
+    t.setRangeText('\n'+ind,s,t.selectionEnd,'end');t.dispatchEvent(new Event('input'));
+  }
+});
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()=='s'&&cur){e.preventDefault();saveFile(false)}});
+$('fSave').onclick=()=>saveFile(false);$('fSaveR').onclick=()=>saveFile(true);
+$('nf').onclick=async()=>{const n=await ask('New file',{input:'',ok:'Create',msg:'Example: config.json or utils/helpers.py'});if(!n)return;
+  try{await api('/file',J('PUT',{path:join(dir,n),content:''}));await ls(dir);openFile(join(dir,n))}catch(e){fail(e)}};
+$('nd').onclick=async()=>{const n=await ask('New folder',{input:'',ok:'Create'});if(!n)return;
+  try{await api('/mkdir',J('POST',{path:join(dir,n)}));ls(dir)}catch(e){fail(e)}};
+async function upload(files){
+  files=[...files];if(!files.length)return;let extract=0;const zips=files.filter(f=>/\.zip$/i.test(f.name));
+  if(zips.length){
+    const a=await ask('Extract the zip?',{msg:(zips.length>1?zips.length+' zip files':'“'+zips[0].name+'”')+' will be unpacked into '+(dir?'“'+dir+'”':'the project folder')+'.',ok:'Extract',alt:'Keep as .zip'});
+    if(a===null)return;extract=a===true?1:0;
+  }
+  const fd=new FormData();fd.append('path',dir);fd.append('extract',extract);files.forEach(f=>fd.append('files',f));toast('Uploading…');
+  try{const d=await api('/upload',{method:'POST',body:fd});toast((extract?'Extracted ':'Uploaded ')+d.count+' file'+(d.count==1?'':'s')+(on?' · restart to apply':''));ls(dir)}catch(e){fail(e)}
+}
+$('up').onclick=()=>$('upIn').click();$('upIn').onchange=e=>{upload(e.target.files);e.target.value=''};
+let dc=0;
+addEventListener('dragenter',e=>{if(e.dataTransfer&&[...e.dataTransfer.types].includes('Files')){dc++;$('drop').hidden=false}});
+addEventListener('dragleave',()=>{if(--dc<=0){dc=0;$('drop').hidden=true}});
+addEventListener('dragover',e=>e.preventDefault());
+addEventListener('drop',e=>{e.preventDefault();dc=0;$('drop').hidden=true;if(e.dataTransfer.files.length){switchTab('files');upload(e.dataTransfer.files)}});
+addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue=''}});
+
+// ---------- packages ----------
+let pk=[];
+async function quiet(cmd){
+  const r=await fetch('/api/bots/'+ID+'/exec',J('POST',{cmd,cwd:''}));
+  if(!r.ok)throw new Error((await r.json()).error||'Failed');
+  const t=await r.text(),k=t.indexOf('\0'),e=t.match(/\0EXIT:(-?\d+)/);
+  return {out:(k<0?t:t.slice(0,k)).trim(),code:e?+e[1]:0};
+}
+async function loadPkgs(){
+  try{
+    if(lang=='py'){const d=await api('/file?path=requirements.txt');pk=d.content.split('\n').map(s=>s.trim()).filter(s=>s&&!s.startsWith('#'))}
+    else{const j=JSON.parse((await api('/file?path=package.json')).content);pk=Object.entries(j.dependencies||{}).map(([k,v])=>k+'@'+v)}
+  }catch(_){pk=[]}
+  $('pk').innerHTML=pk.map((p,i)=>`<span class="pill"><span>${esc(p)}</span><button data-i="${i}" aria-label="Remove ${esc(p)}">✕</button></span>`).join('')||'<span class="t">No packages yet. Tap ＋ to add one.</span>';
+}
+const okPkg=s=>/^[\w@./:=<>!~,\[\]-]+$/.test(s);
+$('pkAdd').onclick=async()=>{
+  const n=await ask('Add package',{input:'',ok:'Install',msg:lang=='py'?'Example: requests or discord.py==2.4.0':'Example: discord.js or axios'});
+  if(!n)return;if(!okPkg(n))return toast('That package name has characters that aren’t allowed',1);
+  toast('Installing '+n+'…');
+  try{
+    const r=await quiet(lang=='py'?'pip install "'+n+'"':'npm install '+n);
+    if(r.code)return toast('Install failed: '+(r.out.split('\n').filter(Boolean).pop()||'unknown error'),1);
+    if(lang=='py'){let c='';try{c=(await api('/file?path=requirements.txt')).content}catch(_){}
+      if(!c.split('\n').map(s=>s.trim()).includes(n))await api('/file',J('PUT',{path:'requirements.txt',content:(c&&!c.endsWith('\n')?c+'\n':c)+n+'\n'}))}
+    toast('Installed '+n+(on?' · restart to apply':''));loadPkgs();
+  }catch(e){fail(e)}
+};
+$('pk').onclick=async e=>{
+  const b=e.target.closest('button');if(!b)return;const p=pk[+b.dataset.i];
+  if(!await ask('Remove “'+p+'”?',{msg:lang=='py'?'It will be removed from requirements.txt.':'It will be uninstalled.',ok:'Remove',danger:1}))return;
+  try{
+    if(lang=='py'){const c=(await api('/file?path=requirements.txt')).content.split('\n').filter(s=>s.trim()!==p).join('\n');await api('/file',J('PUT',{path:'requirements.txt',content:c}))}
+    else{const r=await quiet('npm uninstall '+p.replace(/@[^@]*$/,''));if(r.code)throw new Error(r.out.split('\n').pop())}
+    toast('Removed');loadPkgs();
+  }catch(err){fail(err)}
+};
+$('pkAll').onclick=async()=>{toast('Installing everything…');try{const r=await quiet(lang=='py'?'pip install -r requirements.txt':'npm install');
+  toast(r.code?'Install failed: '+(r.out.split('\n').filter(Boolean).pop()||'error'):'All packages installed',r.code)}catch(e){fail(e)}};
+
+// ---------- backups ----------
+async function loadBk(){
+  try{const d=await api('/backups');
+    $('bkList').innerHTML=d.map(b=>`<div class="fi" data-n="${esc(b.name)}"><b>🗄</b><span class="n">${esc(b.name.replace('.zip','').replace('_',' '))}</span><small>${size(b.size)}</small><button class="ib" data-menu aria-label="Backup options">⋮</button></div>`).join('')||'<div class="empty">No backups yet. Create one before big changes.</div>'}
+  catch(e){fail(e)}
+}
+$('bkNew').onclick=async()=>{try{await api('/backups',{method:'POST'});toast('Backup created');loadBk()}catch(e){fail(e)}};
+$('bkList').onclick=e=>{
+  const m=e.target.closest('[data-menu]'),r=e.target.closest('.fi');if(!m||!r)return;const n=r.dataset.n,u='/backups/'+encodeURIComponent(n);
+  pop(m,[['Restore',async()=>{if(!await ask('Restore this backup?',{msg:'Files in the backup overwrite the current ones. Other files are kept.',ok:'Restore',danger:1}))return;
+      try{const d=await api(u+'/restore',{method:'POST'});toast('Restored '+d.count+' files'+(on?' · restart to apply':''))}catch(err){fail(err)}}],
+    ['Download',()=>location.href='/api/bots/'+ID+u],
+    ['Delete',async()=>{if(!await ask('Delete this backup?',{ok:'Delete',danger:1}))return;try{await api(u,{method:'DELETE'});loadBk()}catch(err){fail(err)}},1]]);
+};
+
+// ---------- settings ----------
+function envRow(k='',v=''){
+  const r=document.createElement('div');r.className='er';
+  r.innerHTML='<input class="k" placeholder="e.g. TOKEN" value="'+esc(k)+'" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Variable name"><input class="v" type="password" placeholder="value" value="'+esc(v)+'" autocomplete="off" spellcheck="false" aria-label="Variable value"><button class="ib" type="button" aria-label="Remove variable">−</button>';
+  r.lastChild.onclick=()=>r.remove();$('envs').appendChild(r);
+}
+$('envAdd').onclick=()=>envRow();
+$('rev').onclick=()=>{const show=$('rev').textContent=='Show values';document.querySelectorAll('.er .v').forEach(i=>i.type=show?'text':'password');$('rev').textContent=show?'Hide values':'Show values'};
+$('idCp').onclick=()=>copy(String(ID),'ID copied');
+async function saveSettings(){
+  const env={};document.querySelectorAll('.er').forEach(r=>{const k=r.querySelector('.k').value.trim();if(k)env[k]=r.querySelector('.v').value});
+  await api('',J('PUT',{name:$('sName').value,description:$('sDesc').value,cmd:$('sCmd').value,auto:$('sAuto').checked,restart_hours:parseFloat($('sHrs').value)||0,env}));
+}
+$('save').onclick=async()=>{try{await saveSettings();toast(on?'Saved · restart to apply':'Saved');poll()}catch(e){fail(e)}};
+$('saveR').onclick=async()=>{try{await saveSettings();await api('/'+(on?'restart':'start'),{method:'POST'});toast('Saved and '+(on?'restarted':'started'));poll()}catch(e){fail(e)}};
+$('del').onclick=async()=>{
+  if(!await ask('Delete this project?',{msg:'The project, its files and its backups will be removed for good.',ok:'Delete project',danger:1}))return;
+  try{await api('',{method:'DELETE'});location.href='panel.html'}catch(e){fail(e)}
+};
+
+const tab=location.hash.slice(1);
+if(['terminal','files','manage','backups','settings'].includes(tab))switchTab(tab);
+setInterval(poll,2000);poll();
+</script>
+</body>
+</html>

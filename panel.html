@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel – KILLU X HOST</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050812; --panel:#0b1223; --panel2:#101a31; --line:#1b2947; --line2:#27396383;
+  --text:#eaf0ff; --muted:#8d9cc0; --blue:#2f7bff; --cyan:#4fd6ff; --ok:#3ddc97; --bad:#ff5d73; --warn:#ffc65c;
+  --display:'Unbounded','Segoe UI',sans-serif; --body:'Manrope','Segoe UI',system-ui,sans-serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:400 15px/1.55 var(--body);min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:
+  radial-gradient(800px 420px at 90% -5%,rgba(47,123,255,.18),transparent 70%),
+  linear-gradient(rgba(120,150,220,.04) 1px,transparent 1px) 0 0/52px 52px,
+  linear-gradient(90deg,rgba(120,150,220,.04) 1px,transparent 1px) 0 0/52px 52px;
+  -webkit-mask-image:linear-gradient(#000 40%,transparent);mask-image:linear-gradient(#000 40%,transparent)}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:8px}
+h1,h2,h3{font-family:var(--display);line-height:1.2;letter-spacing:-.02em}
+.logo{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.02em}
+.logo b{color:var(--blue);text-shadow:0 0 20px rgba(47,123,255,.9);margin:0 .12em}
+
+.app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}
+aside{position:sticky;top:0;height:100vh;padding:28px 18px 22px;border-right:1px solid var(--line);background:rgba(8,13,28,.75);backdrop-filter:blur(14px);display:flex;flex-direction:column;gap:32px}
+aside nav{display:grid;gap:4px}
+aside nav a{display:flex;gap:12px;align-items:center;padding:11px 14px;border-radius:11px;color:var(--muted);font-weight:600;transition:background .15s,color .15s}
+aside nav a svg{width:19px;height:19px;flex:none}
+aside nav a:hover{background:var(--panel);color:var(--text)}
+aside nav a.on{background:linear-gradient(90deg,rgba(47,123,255,.22),rgba(47,123,255,.06));color:var(--text);box-shadow:inset 2px 0 0 var(--blue)}
+.side-card{margin-top:auto;padding:16px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,var(--panel2),var(--panel));font-size:13px;color:var(--muted)}
+.side-card strong{display:flex;align-items:center;gap:8px;color:var(--text);font-size:14px;margin-bottom:6px}
+.side-card a{display:inline-block;margin-top:12px;color:var(--cyan);font-weight:700}
+
+main{padding:0 40px 60px;min-width:0}
+.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;margin-bottom:10px;background:linear-gradient(var(--bg) 60%,transparent)}
+.top h1{font-size:22px}
+.top small{display:block;color:var(--muted);font-size:13px;font-family:var(--body);letter-spacing:0;margin-top:3px}
+.tools{display:flex;align-items:center;gap:12px}
+.search{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:10px 14px;width:240px}
+.search::placeholder{color:#5d6d92}
+.search:focus{border-color:var(--blue);outline:0}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:99px;background:rgba(61,220,151,.1);color:var(--ok);font-size:13px;font-weight:700;border:1px solid rgba(61,220,151,.2)}
+.led{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#04101f;font:700 15px var(--display)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:11px;border:1px solid var(--line);background:var(--panel2);font-weight:700;font-size:14px;transition:transform .15s,border-color .15s,box-shadow .15s}
+.btn:hover{border-color:var(--blue);transform:translateY(-1px)}
+.btn.primary{background:linear-gradient(135deg,#3b86ff,#1a4fd0);border-color:rgba(120,170,255,.35);box-shadow:0 8px 28px rgba(47,123,255,.38),inset 0 1px 0 rgba(255,255,255,.2)}
+
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:20px;padding:24px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:22px}
+.stat{position:relative;overflow:hidden}
+.stat span{color:var(--muted);font-size:13.5px}
+.stat strong{display:block;font-family:var(--display);font-size:30px;margin:6px 0 2px}
+.stat em{font-style:normal;color:var(--muted);font-size:13px}
+.stat svg{position:absolute;right:0;bottom:0;width:55%;height:46px;opacity:.9}
+.row2{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:22px;margin-bottom:22px}
+.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:12px}
+.ch h2{font-size:16px}
+.legend{display:flex;gap:18px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+.chart{width:100%;height:230px;display:block}
+.chart .gl{stroke:#1b2947;stroke-width:1;vector-effect:non-scaling-stroke}
+
+.console{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.console .bh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);background:rgba(16,26,49,.7)}
+.console .bh strong{font-size:15px}
+.dot{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700}
+.dot::before{content:"";width:8px;height:8px;border-radius:50%;background:#4a5a7e}
+.dot.on{color:var(--ok)}.dot.on::before{background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.dot.off{color:var(--muted)}
+.console pre{font:13px/1.85 var(--mono);padding:18px 20px;height:250px;overflow:auto;white-space:pre-wrap;color:#b9c7e6;flex:1}
+.cmd{display:flex;align-items:center;gap:10px;padding:12px 20px;border-top:1px solid var(--line);background:rgba(5,8,18,.5);font:13px var(--mono)}
+.cmd input{flex:1;background:none;border:0;outline:0;font:13px var(--mono)}
+.t{color:#5d6d92}.g{color:var(--ok)}.r{color:var(--bad)}.c{color:var(--cyan)}
+
+.tw{overflow-x:auto;margin:0 -8px}
+table{width:100%;border-collapse:collapse;min-width:820px}
+th{text-align:left;color:var(--muted);font-size:13px;font-weight:600;padding:10px 14px;border-bottom:1px solid var(--line)}
+td{padding:15px 14px;border-bottom:1px solid rgba(27,41,71,.6);vertical-align:middle}
+tr.bt{cursor:pointer;transition:background .15s}
+tr.bt:hover{background:rgba(47,123,255,.06)}
+tr.bt.sel{background:rgba(47,123,255,.1);box-shadow:inset 3px 0 0 var(--blue)}
+.nm{font-weight:700}
+.chip{display:inline-block;padding:3px 11px;border-radius:99px;background:rgba(47,123,255,.15);color:var(--cyan);font-size:12px;font-weight:700;margin-left:10px}
+.chip.js{background:rgba(255,198,92,.14);color:var(--warn)}
+.meter{display:flex;align-items:center;gap:10px;min-width:130px;font-size:13px;color:var(--muted)}
+.meter div{flex:1;height:6px;background:var(--panel);border-radius:9px;overflow:hidden}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:9px;transition:width .6s}
+.meter span{width:48px;text-align:right}
+.acts{display:flex;gap:8px;justify-content:flex-end}
+.ib{width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:var(--panel2);border:1px solid var(--line);font-size:13px;transition:border-color .15s,color .15s}
+.ib:hover{border-color:var(--blue);color:var(--cyan)}
+.ib.dng:hover{border-color:var(--bad);color:var(--bad)}
+.empty{text-align:center;color:var(--muted);padding:34px 0}
+
+dialog{margin:auto;background:var(--panel);color:var(--text);border:1px solid var(--line2);border-radius:20px;padding:30px;width:min(420px,92vw);box-shadow:0 40px 100px rgba(0,0,0,.7)}
+dialog::backdrop{background:rgba(3,5,12,.7);backdrop-filter:blur(4px)}
+dialog h3{font-size:18px;margin-bottom:20px}
+dialog label{display:block;font-size:13px;color:var(--muted);margin:14px 0 6px}
+dialog input,dialog select,dialog textarea{font:inherit;width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 14px}
+dialog input:focus,dialog select:focus,dialog textarea:focus{border-color:var(--blue);outline:0}
+.dr{display:flex;gap:10px;justify-content:flex-end;margin-top:26px}
+#toast{position:fixed;right:24px;bottom:24px;z-index:50;display:grid;gap:10px}
+#toast div{background:var(--panel2);border:1px solid var(--line2);border-left:3px solid var(--blue);padding:13px 18px;border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.6);font-size:14px;font-weight:600}
+
+/* premium polish */
+::selection{background:rgba(47,123,255,.4)}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#1f2f52;border-radius:9px;border:2px solid var(--bg)}
+td,.stat strong,.meter span,.dot,.sh{font-variant-numeric:tabular-nums}
+.logo::before{content:"";display:inline-block;width:26px;height:26px;margin-right:10px;vertical-align:-6px;filter:drop-shadow(0 0 8px rgba(47,123,255,.7));background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234fd6ff'/%3E%3Cstop offset='1' stop-color='%232f7bff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M40 40L190 190H150L360 360' stroke='url(%23g)' stroke-width='48' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M360 40L215 185H250L40 360' stroke='url(%23g)' stroke-width='48' stroke-linejoin='round' stroke-linecap='round' opacity='.6'/%3E%3C/svg%3E") center/contain no-repeat}
+.stat::before{content:"";position:absolute;left:14%;right:14%;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.6}
+.btn.primary{position:relative;overflow:hidden}
+.btn.primary::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);transform:translateX(-130%);transition:transform .7s}
+.btn.primary:hover::after{transform:translateX(130%)}
+/* server health */
+.srv{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:22px;padding:20px 24px}
+.srv span{color:var(--muted);font-size:13px}.srv strong{display:block;font-size:15px;margin-top:3px;font-variant-numeric:tabular-nums}
+.mt{height:6px;background:var(--panel);border-radius:9px;margin-top:10px;overflow:hidden}.mt i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:9px;transition:width .6s}
+@media(max-width:700px){.srv{grid-template-columns:1fr 1fr;gap:16px}}
+/* phone: bots as cards */
+@media(max-width:700px){
+  .tw{margin:0;overflow:visible}table,tbody{display:block;min-width:0}thead{display:none}
+  tr.bt{display:grid;grid-template-columns:1fr auto;gap:10px 12px;padding:16px;margin-bottom:12px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--panel2),var(--panel))}
+  tr.bt td{display:block;padding:0;border:0}
+  tr.bt td:nth-child(3),tr.bt td:nth-child(4),tr.bt td:nth-child(5),tr.bt td:nth-child(6){grid-column:1/-1}
+  tr.bt td:nth-child(5){order:3}tr.bt td:nth-child(6){order:4}
+  .ib{width:44px;height:44px}.main-pad{padding:0}
+}
+@media(max-width:1180px){.stats{grid-template-columns:1fr 1fr}.row2{grid-template-columns:1fr}}
+@media(max-width:1000px){
+  .app{grid-template-columns:1fr}
+  aside{position:static;height:auto;flex-direction:row;align-items:center;justify-content:space-between;padding:14px 18px;border-right:0;border-bottom:1px solid var(--line)}
+  aside nav{display:flex}.side-card{display:none}
+  main{padding:0 18px 48px}.search{display:none}
+}
+@media(max-width:560px){aside nav a span{display:none}.stats{grid-template-columns:1fr}.tools .pill{display:none}.top h1{font-size:19px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <a class="logo" href="index.html" aria-label="KILLU X HOST website">KILLU<b>X</b>HOST</a>
+  <nav>
+    <a class="on" href="#overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg><span>Overview</span></a>
+    <a href="#bots"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span>My bots</span></a>
+    <a href="#console"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-6-6-6M12 19h8"/></svg><span>Console</span></a>
+    <a href="#" id="setBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg><span>Alerts &amp; backup</span></a>
+  </nav>
+  <div class="side-card"><strong><i class="led"></i>Private panel</strong>Only you can see and control your bots here.<br><a href="index.html">← Back to website</a></div>
+</aside>
+
+<main>
+  <div class="top" id="overview">
+    <div><h1>Overview</h1><small>Welcome back, Killu</small></div>
+    <div class="tools">
+      <input class="search" id="q" type="search" placeholder="Search bots…" aria-label="Search bots">
+      <span class="pill" id="srv"><i class="led"></i><span>Server online</span></span>
+      <div class="avatar" aria-label="Killu">K</div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="card stat"><span>Total bots</span><strong id="sTotal">0</strong><em id="sTotalSub"></em></div>
+    <div class="card stat"><span>Online now</span><strong id="sOn" style="color:var(--ok)">0</strong><em id="sOnSub"></em></div>
+    <div class="card stat"><span>Total CPU</span><strong id="sCpu">0%</strong><em>across all bots</em><svg id="spCpu" viewBox="0 0 120 46" preserveAspectRatio="none" aria-hidden="true"></svg></div>
+    <div class="card stat"><span>Memory used</span><strong id="sRam">0 MB</strong><em>across all bots</em><svg id="spRam" viewBox="0 0 120 46" preserveAspectRatio="none" aria-hidden="true"></svg></div>
+  </div>
+
+  <div class="card srv" aria-label="Server health">
+    <div><span>Disk</span><strong id="vDisk">–</strong><div class="mt"><i id="mDisk"></i></div></div>
+    <div><span>System memory</span><strong id="vMem">–</strong><div class="mt"><i id="mMem"></i></div></div>
+    <div><span>Server uptime</span><strong id="vUp">–</strong></div>
+    <div><span>Runtime</span><strong id="vPy">–</strong></div>
+  </div>
+
+  <div class="row2">
+    <div class="card">
+      <div class="ch"><h2>Resource usage</h2><div class="legend"><span><i style="background:var(--cyan)"></i>CPU</span><span><i style="background:var(--blue)"></i>Memory</span></div></div>
+      <svg class="chart" id="chart" viewBox="0 0 600 230" preserveAspectRatio="none" aria-label="Live CPU and memory chart" role="img">
+        <defs>
+          <linearGradient id="fc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4fd6ff" stop-opacity=".35"/><stop offset="1" stop-color="#4fd6ff" stop-opacity="0"/></linearGradient>
+          <linearGradient id="fr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f7bff" stop-opacity=".3"/><stop offset="1" stop-color="#2f7bff" stop-opacity="0"/></linearGradient>
+        </defs>
+        <line class="gl" x1="0" x2="600" y1="58" y2="58"/><line class="gl" x1="0" x2="600" y1="115" y2="115"/><line class="gl" x1="0" x2="600" y1="172" y2="172"/>
+        <path id="aR" fill="url(#fr)"/><path id="lR" fill="none" stroke="#2f7bff" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+        <path id="aC" fill="url(#fc)"/><path id="lC" fill="none" stroke="#4fd6ff" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="card console" id="console">
+      <div class="bh"><strong id="cName">Console</strong><span class="dot off" id="cState">stopped</span></div>
+      <pre id="log" aria-live="polite"></pre>
+      <div class="cmd"><span class="c">$</span><input id="cmd" placeholder="Type start, stop, restart or clear" aria-label="Console command" autocomplete="off"></div>
+    </div>
+  </div>
+
+  <div class="card" id="bots">
+    <div class="ch">
+      <h2>My bots</h2>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn" id="allOn">Start all</button>
+        <button class="btn" id="allOff">Stop all</button>
+        <button class="btn primary" id="addBtn">+ Add bot</button>
+      </div>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th>Bot</th><th>Status</th><th>CPU</th><th>Memory</th><th>Uptime</th><th style="text-align:right">Actions</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </div>
+</main>
+</div>
+
+<dialog id="dlg">
+  <form id="addForm">
+    <h3>Add a bot</h3>
+    <label for="newName">Bot name</label><input id="newName" maxlength="40" placeholder="e.g. Music Bot" required>
+    <label for="newLang">Language</label><select id="newLang"><option value="py">Python</option><option value="js">Node.js</option></select>
+    <label for="newFiles">Your code (a .zip or separate files)</label><input id="newFiles" type="file" multiple>
+    <label for="newRepo">Or import from GitHub (optional)</label><input id="newRepo" placeholder="https://github.com/you/your-bot">
+    <label for="newCmd">Start command (optional)</label><input id="newCmd" placeholder="Auto-detects main.py, bot.py, index.js…">
+    <label for="newEnv">Environment variables, one per line</label><textarea id="newEnv" rows="3" placeholder="TOKEN=your-bot-token"></textarea>
+    <div class="dr"><button type="button" class="btn" id="cancel">Cancel</button><button class="btn primary">Add bot</button></div>
+  </form>
+</dialog>
+<dialog id="sdlg">
+  <h3>Alerts &amp; backup</h3>
+  <p>Get a message when a project crashes or keeps failing. Fill in one or both.</p>
+  <label for="sDisc">Discord webhook link</label><input id="sDisc" autocomplete="off" spellcheck="false" placeholder="https://discord.com/api/webhooks/…">
+  <label for="sTgT">Telegram bot token</label><input id="sTgT" autocomplete="off" spellcheck="false" placeholder="123456:ABC… (from @BotFather)">
+  <label for="sTgC">Telegram chat ID</label><input id="sTgC" autocomplete="off" spellcheck="false" placeholder="e.g. 123456789">
+  <div class="dr" style="justify-content:flex-start"><button class="btn primary" id="sdSave">Save</button><button class="btn" id="sdTest">Send test alert</button><button class="btn" id="sdClear">Remove alerts</button></div>
+  <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
+  <p style="margin-bottom:12px">Download every project in one zip. Tokens are not included.</p>
+  <div class="dr" style="justify-content:space-between;margin-top:0"><a class="btn" href="/api/backup-all">Download all projects</a><button class="btn" id="sdClose">Close</button></div>
+</dialog>
+<div id="toast" aria-live="polite"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rnd=(a,b)=>Math.floor(a+Math.random()*(b-a+1));
+const now=()=>new Date().toTimeString().slice(0,8);
+const fmt=s=>{const d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);return d?d+'d '+h+'h':h?h+'h '+m+'m':m+'m '+(s%60)+'s'};
+let n=0,sel=1,q='';
+let bots=[];
+const H={c:Array(40).fill(0),r:Array(40).fill(0)};
+const get=id=>bots.find(b=>b.id===id);
+
+function toast(t){const d=document.createElement('div');d.textContent=t;$('toast').appendChild(d);setTimeout(()=>d.remove(),2600)}
+function pts(a,max,w,h){return a.map((v,i)=>(i*w/(a.length-1)).toFixed(1)+','+(h-(v/max)*h*.82-4).toFixed(1))}
+const line=(a,max,w,h)=>'M'+pts(a,max,w,h).join('L');
+const area=(a,max,w,h)=>line(a,max,w,h)+'L'+w+','+h+'L0,'+h+'Z';
+function spark(id,a,col){const mx=Math.max(...a,1)*1.2;$(id).innerHTML=`<path d="${area(a,mx,120,46)}" fill="${col}" opacity=".15"/><path d="${line(a,mx,120,46)}" fill="none" stroke="${col}" stroke-width="2" vector-effect="non-scaling-stroke"/>`}
+
+function drawRows(){
+  const list=bots.filter(b=>b.name.toLowerCase().includes(q));
+  $('rows').innerHTML=list.map(b=>`<tr class="bt${b.id===sel?' sel':''}" data-id="${b.id}">
+    <td><span class="nm">${esc(b.name)}</span><span class="chip ${b.lang}">${b.lang=='py'?'Python':'Node.js'}</span></td>
+    <td><span class="dot ${b.on?'on':'off'}">${b.on?'Online':'Stopped'}</span></td>
+    <td><div class="meter"><div><i data-k="cb" style="width:${Math.min(b.cpu*4,100)}%"></i></div><span data-k="ct">${b.cpu}%</span></div></td>
+    <td><div class="meter"><div><i data-k="rb" style="width:${Math.min(b.ram/2.56,100)}%"></i></div><span data-k="rt">${b.ram} MB</span></div></td>
+    <td data-k="up" style="color:var(--muted)">${b.on?fmt(b.up):'–'}</td>
+    <td><div class="acts">${b.on?`<button class="ib" data-a="stop" title="Stop" aria-label="Stop ${esc(b.name)}">■</button><button class="ib" data-a="restart" title="Restart" aria-label="Restart ${esc(b.name)}">↻</button>`:`<button class="ib" data-a="start" title="Start" aria-label="Start ${esc(b.name)}">▶</button>`}<button class="ib dng" data-a="del" title="Delete" aria-label="Delete ${esc(b.name)}">✕</button></div></td></tr>`).join('')||'<tr><td colspan="6" class="empty">No bots yet. Click “+ Add bot” and upload your code.</td></tr>';
+}
+function tickRows(){
+  document.querySelectorAll('#rows tr.bt').forEach(r=>{
+    const b=get(+r.dataset.id);if(!b)return;
+    const s=k=>r.querySelector('[data-k="'+k+'"]');
+    s('cb').style.width=Math.min(b.cpu*4,100)+'%';s('ct').textContent=b.cpu+'%';
+    s('rb').style.width=Math.min(b.ram/2.56,100)+'%';s('rt').textContent=b.ram+' MB';
+    s('up').textContent=b.on?fmt(b.up):'–';
+  });
+}
+function drawStats(){
+  const on=bots.filter(b=>b.on),cpu=on.reduce((a,b)=>a+b.cpu,0),ram=on.reduce((a,b)=>a+b.ram,0);
+  $('sTotal').textContent=bots.length;$('sTotalSub').textContent=bots.filter(b=>b.lang=='py').length+' Python · '+bots.filter(b=>b.lang=='js').length+' Node.js';
+  $('sOn').textContent=on.length;$('sOnSub').textContent=(bots.length-on.length)+' stopped';
+  $('sCpu').textContent=cpu+'%';$('sRam').textContent=ram+' MB';
+  H.c.push(cpu);H.r.push(ram);H.c.shift();H.r.shift();
+  spark('spCpu',H.c,'#4fd6ff');spark('spRam',H.r,'#2f7bff');
+  const mc=Math.max(...H.c,10)*1.25,mr=Math.max(...H.r,100)*1.25;
+  $('lC').setAttribute('d',line(H.c,mc,600,230));$('aC').setAttribute('d',area(H.c,mc,600,230));
+  $('lR').setAttribute('d',line(H.r,mr,600,230));$('aR').setAttribute('d',area(H.r,mr,600,230));
+}
+function drawLog(){
+  const b=get(sel);
+  if(!b){$('cName').textContent='Console';$('log').innerHTML='<span class="t">Select a bot to see its logs.</span>';$('cState').className='dot off';$('cState').textContent='–';return}
+  $('cName').textContent=b.name;
+  const s=$('cState');s.className='dot '+(b.on?'on':'off');s.textContent=b.on?'Online':'Stopped';
+  const p=$('log'),stick=p.scrollTop+p.clientHeight>=p.scrollHeight-40;
+  p.innerHTML=b.logs.join('\n');if(stick)p.scrollTop=p.scrollHeight;
+}
+const all=()=>{drawRows();drawStats();drawLog()};
+
+const colorize=l=>{const s=esc(l);return /error|traceback|exception/i.test(l)?'<span class="r">'+s+'</span>':l.startsWith('[killu]')?'<span class="c">'+s+'</span>':s};
+let lastSig='';
+async function api(path,opt){
+  const r=await fetch('/api'+path,opt);
+  if(!r.ok){let m='Request failed';try{m=(await r.json()).error||m}catch(_){}throw new Error(m)}
+  return r.json();
+}
+function online(ok){$('srv').lastElementChild.textContent=ok?'Server online':'Server offline';$('srv').style.opacity=ok?1:.6}
+async function sync(force){
+  try{
+    const d=await api('/bots');online(true);
+    bots=d.map(b=>({...b,logs:b.logs.map(colorize)}));
+    if(!get(sel)&&bots.length)sel=bots[0].id;
+    const sig=bots.map(b=>b.id+b.status+b.name).join();
+    if(force||sig!==lastSig){lastSig=sig;drawRows()}else tickRows();
+    drawStats();drawLog();
+  }catch(e){online(false)}
+}
+async function act(id,a){
+  try{
+    if(a=='del'){if(!confirm('Delete this bot and all its files?'))return;await api('/bots/'+id,{method:'DELETE'})}
+    else await api('/bots/'+id+'/'+a,{method:'POST'});
+    toast(a=='del'?'Bot deleted':'Done: '+a);await sync(true);
+  }catch(e){toast(e.message)}
+}
+$('rows').addEventListener('click',e=>{
+  const r=e.target.closest('tr.bt');if(!r)return;
+  const id=+r.dataset.id,a=e.target.closest('button')?.dataset.a;sel=id;
+  if(a)act(id,a);else location.href='bot.html?id='+id
+});
+$('allOn').onclick=async()=>{for(const b of bots)if(!b.on)await act(b.id,'start')};
+$('allOff').onclick=async()=>{for(const b of bots)if(b.on)await act(b.id,'stop')};
+$('q').oninput=e=>{q=e.target.value.trim().toLowerCase();drawRows()};
+$('addBtn').onclick=()=>{$('dlg').showModal();$('newName').focus()};
+$('cancel').onclick=()=>$('dlg').close();
+$('addForm').onsubmit=async e=>{
+  e.preventDefault();
+  const fd=new FormData();
+  fd.append('name',$('newName').value.trim());fd.append('lang',$('newLang').value);
+  fd.append('cmd',$('newCmd').value.trim());fd.append('repo',$('newRepo').value.trim());fd.append('env',$('newEnv').value);
+  for(const f of $('newFiles').files)fd.append('files',f);
+  try{const b=await api('/bots',{method:'POST',body:fd});sel=b.id;$('addForm').reset();$('dlg').close();toast('Bot added');await sync(true)}
+  catch(err){toast(err.message)}
+};
+$('cmd').addEventListener('keydown',e=>{
+  if(e.key!='Enter')return;
+  const v=e.target.value.trim().toLowerCase();e.target.value='';
+  if(['start','stop','restart'].includes(v)&&get(sel))act(sel,v);else if(v)toast('Commands: start, stop, restart');
+});
+document.querySelectorAll('aside nav a:not(#setBtn)').forEach(a=>a.addEventListener('click',()=>{
+  document.querySelectorAll('aside nav a').forEach(x=>x.classList.toggle('on',x===a));
+}));
+async function srv(){
+  try{
+    const s=await (await fetch('/api/server')).json(),gb=b=>(b/1073741824).toFixed(1)+' GB';
+    $('vDisk').textContent=gb(s.disk.used)+' of '+gb(s.disk.total);$('mDisk').style.width=(s.disk.used/s.disk.total*100)+'%';
+    if(s.mem){$('vMem').textContent=gb(s.mem.used)+' of '+gb(s.mem.total);$('mMem').style.width=(s.mem.used/s.mem.total*100)+'%'}else $('vMem').textContent='Not available';
+    $('vUp').textContent=fmt(s.uptime);$('vPy').textContent='Python '+s.python;
+  }catch(_){}
+}
+async function loadSet(){
+  try{const s=await (await fetch('/api/settings')).json();
+    $('sDisc').placeholder=s.discord_set?'Saved. Type a new link to replace it':'https://discord.com/api/webhooks/…';
+    $('sTgT').placeholder=s.tg_set?'Saved. Type a new token to replace it':'123456:ABC… (from @BotFather)';$('sTgC').value=s.tg_chat||''}catch(_){}
+}
+async function putSet(b){
+  const r=await fetch('/api/settings',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});
+  if(!r.ok)throw new Error((await r.json()).error||'Could not save');
+}
+$('setBtn').onclick=e=>{e.preventDefault();loadSet();$('sdlg').showModal()};
+$('sdClose').onclick=()=>$('sdlg').close();
+$('sdSave').onclick=async()=>{
+  const b={tg_chat:$('sTgC').value};if($('sDisc').value.trim())b.discord=$('sDisc').value;if($('sTgT').value.trim())b.tg_token=$('sTgT').value;
+  try{await putSet(b);$('sDisc').value=$('sTgT').value='';toast('Alerts saved');loadSet()}catch(e){toast(e.message)}
+};
+$('sdClear').onclick=async()=>{try{await putSet({clear:true});$('sDisc').value=$('sTgT').value=$('sTgC').value='';toast('Alerts removed');loadSet()}catch(e){toast(e.message)}};
+$('sdTest').onclick=async()=>{
+  try{const d=await (await fetch('/api/settings/test',{method:'POST'})).json();toast(d.error?d.error:'Test alert sent. Check Discord or Telegram.')}catch(e){toast('Could not reach the server')}
+};
+srv();setInterval(srv,10000);
+setInterval(sync,2000);sync(true);
+</script>
+</body>
+</html>

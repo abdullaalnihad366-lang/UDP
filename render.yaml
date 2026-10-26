@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: killu-x-host
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: DATA_DIR
+        value: /data
+      - key: PANEL_USER
+        sync: false
+      - key: PANEL_PASS
+        sync: false
+    disk:
+      name: killu-data
+      mountPath: /data
+      sizeGB: 1
