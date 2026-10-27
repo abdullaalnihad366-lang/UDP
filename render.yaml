@@ -2,18 +2,16 @@ services:
   - type: web
     name: killu-x-host
     runtime: python
-    plan: starter
+    plan: starter            # paid. Free plans sleep and can't have a disk.
     buildCommand: pip install -r requirements.txt
     startCommand: python server.py
     envVars:
-      - key: HOST
-        value: 0.0.0.0
-      - key: DATA_DIR
-        value: /data
       - key: PANEL_USER
-        sync: false
+        sync: false          # you type the value in Render
       - key: PANEL_PASS
         sync: false
+      - key: DATA_DIR
+        value: /data
     disk:
       name: killu-data
       mountPath: /data
