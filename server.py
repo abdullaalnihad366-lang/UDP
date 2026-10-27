@@ -878,13 +878,23 @@ def backup_all():
 
 
 if __name__ == "__main__":
-    host, port = os.environ.get("HOST", "127.0.0.1"), int(os.environ.get("PORT", 8000))
-    if host != "127.0.0.1" and not os.environ.get("PANEL_PASS"):
-        print("WARNING: this panel runs code and is open to the network with NO password.\n"
-              "         Set PANEL_USER and PANEL_PASS to protect it.")
+    port = int(os.environ.get("PORT", 8000))
+    # Hosts like Render set PORT. Listen on all interfaces there so the platform can reach the app.
+    host = os.environ.get("HOST") or ("0.0.0.0" if os.environ.get("PORT") or os.environ.get("RENDER") else "127.0.0.1")
+    if host not in ("127.0.0.1", "localhost") and not os.environ.get("PANEL_PASS"):
+        import secrets
+        os.environ.setdefault("PANEL_USER", "killu")
+        os.environ["PANEL_PASS"] = secrets.token_urlsafe(12)
+        print("=" * 60)
+        print("This panel is reachable from the internet, so it needs a password.")
+        print("None was set, so one was generated for this run:")
+        print(f"    username: {os.environ['PANEL_USER']}")
+        print(f"    password: {os.environ['PANEL_PASS']}")
+        print("Set PANEL_USER and PANEL_PASS to choose your own.")
+        print("=" * 60, flush=True)
     for b in STATE:
         if b.get("want"):
             spawn(b)
     threading.Thread(target=watcher, daemon=True).start()
-    print(f"KILLU X HOST running on http://{host}:{port}")
+    print(f"KILLU X HOST running on http://{host}:{port}", flush=True)
     app.run(host=host, port=port, threaded=True)
